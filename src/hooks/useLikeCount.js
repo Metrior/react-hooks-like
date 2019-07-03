@@ -1,18 +1,20 @@
 import React, {useState} from "react";
 
-function useLikeCount() {
-    const {likeCount, setLikeCount}=useState(0);
+export const useLikeCount = (defaultCount, defaultStatus) =>{
+    const [likeCount, setLikeCount]=useState(defaultCount);
+    const [likeStatus, setLikeStatus]=useState(false);
 
-    function makeLike() {
+    function addLike() {
         setLikeCount(likeCount + 1)
     }
 
-    return {likeCount,makeLike};
-}
+    function removeLike() {
+        setLikeCount(likeCount - 1)
+    }
 
-export function useLikeHook(event) {
-    const {liked, setLike}=useState(false);
+    function changeLikeStatus() {
+        setLikeStatus(!likeStatus)
+    }
 
-    return
-}
-
+    return {likeCount,likeStatus,addLike,removeLike,changeLikeStatus};
+};
