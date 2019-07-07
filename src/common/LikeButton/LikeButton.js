@@ -1,46 +1,46 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, memo} from "react";
 import PropTypes from "prop-types";
-import {useLikeCount} from "../../hooks/useLikeCount";
-// import {useLikeStatus} from "../../hooks/useLikeStatus";
+import {useLike} from "../../hooks/useLike";
 
-const LikeButton = ({defaultCount, defaultStatus})=>{
+const LikeButton = ({defaultCount, defaultStatus, changeLike})=>{
 
-    // const {liked, changeLikeStatus} = useLikeStatus(defaultStatus);
-    const {likeCount,likeStatus,addLike, removeLike, changeLikeStatus} = useLikeCount(defaultCount,defaultStatus);
+    const {likeCount,likeStatus,addLike, removeLike, changeLikeStatus} = useLike(defaultCount,defaultStatus);
 
     const button = useRef();
     useEffect(() => {
-        if (likeStatus===true){
+        if (defaultStatus===true){
             button.current.style.color = "red"
         } else {
             button.current.style.color = "black"
         }
     });
 
-    function handleAddLike(){
-        changeLikeStatus();
-        addLike();
+    function clickLike () {
+        changeLike(defaultStatus)
     }
 
-    function handleRemoveLike(){
-        changeLikeStatus();
-        removeLike();
-    }
+    // function handleAddLike(){
+    //     changeLikeStatus();
+    //     addLike();
+    // }
+    //
+    // function handleRemoveLike(){
+    //     changeLikeStatus();
+    //     removeLike();
+    // }
 
     return(
         <div>
-            <span>{likeCount}</span>
-            <button ref={button} onClick={likeStatus===false ? handleAddLike : handleRemoveLike}>PRESS</button>
+            <span>{defaultCount}</span>
+            <button ref={button} onClick={clickLike}>PRESS</button>
         </div>
     )
 };
 
 LikeButton.propTypes = {
-    defaultNumber: PropTypes.number
+    defaultCount: PropTypes.number,
+    defaultStatus: PropTypes.bool,
+    changeLike: PropTypes.func,
 };
 
-LikeButton.defaultProps = {
-  defaultNumber: 0
-};
-
-export default LikeButton
+export default memo(LikeButton)

@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 
-export const useLikeCount = (defaultCount, defaultStatus) =>{
+export const useLike = (defaultCount, defaultStatus, ) =>{
     const [likeCount, setLikeCount]=useState(defaultCount);
-    const [likeStatus, setLikeStatus]=useState(false);
+    const [likeStatus, setLikeStatus]=useState(defaultStatus);
+
+
 
     function addLike() {
         setLikeCount(likeCount + 1)
