@@ -3,25 +3,19 @@ import {useLike} from "../../hooks/useLike";
 import image from "../../image/image.jpg"
 import PropTypes from "prop-types";
 
-const Picture = ({defaultCount, defaultStatus})=>{
+const Picture = ({defaultCount, defaultStatus, changeLike})=>{
 
     const {likeCount,likeStatus,addLike, removeLike, changeLikeStatus} = useLike(defaultCount,defaultStatus);
 
-    function handleAddLike(){
-        changeLikeStatus();
-        addLike();
-    }
-
-    function handleRemoveLike(){
-        changeLikeStatus();
-        removeLike();
+    function clickLike () {
+        changeLike(defaultStatus)
     }
 
     const img = useRef();
 
     return(
         <div>
-            <img ref={img} src={image} alt="" onClick={likeStatus===false ? handleAddLike : handleRemoveLike}/>
+            <img ref={img} src={image} alt="" onClick={clickLike}/>
         </div>
     )
 };
